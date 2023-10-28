@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Expr\FuncCall;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('Main');
+    return view('Public.Main');
+});
+
+Route::get('/contact-form',function(){
+    return view('Public.Contact');
+});
+
+Route::get('/topic-details',function(){
+    return view('Public.TopicDetails');
+});
+
+Route::get('/topic-listing',function(){
+    return view('Public.TopicListing');
 });
