@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Expr\FuncCall;
+use App\Http\Controllers\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +16,30 @@ use PhpParser\Node\Expr\FuncCall;
 |
 */
 
-Route::get('/', function () {
-    return view('Public.Main');
-});
+// Main Pages Routes :-  
 
-Route::get('/contact-form',function(){
-    return view('Public.Contact');
-});
+Route::get('/',[MainController::class,'home']);
+Route::get('/topic-details',[MainController::class,'topicdetails'])->middleware('googleauth');
+Route::get('/topic-listing',[MainController::class,'topiclisting']);
 
-Route::get('/topic-details',function(){
-    return view('Public.TopicDetails');
-});
+// User Signup and Logout :-
 
-Route::get('/topic-listing',function(){
-    return view('Public.TopicListing');
-});
+Route::get('/signup',[MainController::class,'UserLogin']);
+Route::post('auth/logout', [AuthController::class, 'UserLogout'])->name('user.logout');
+
+
+// Google Auth Routes ::-
+
+Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('google.callback');
+
+// Github Auth Routes ::-
+
+Route::get('/auth/github', [AuthController::class, 'redirectToGithub'])->name('github.login');
+Route::get('/auth/github/callback', [AuthController::class, 'handleGitHubCallback'])->name('github.callback');
+
+
+// User Contact Querys Routes :-
+
+Route::get('/contact',[MainController::class,'contact']);
+Route::post('/contact',[MainController::class,'storecontact']);

@@ -30,7 +30,7 @@
 
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="{{url('/')}}">
                         <i class="bi-back"></i>
                         <span>Topic</span>
                     </a>
@@ -69,16 +69,29 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
 
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="topics-listing.html">Topics Listing</a></li>
+                                    <li><a class="dropdown-item" href="{{url('/topic-listing')}}">Topics Listing</a></li>
 
-                                    <li><a class="dropdown-item" href="{{url('/contact-form')}}">Contact Form</a></li>
+                                    <li><a class="dropdown-item" href="{{url('/contact')}}">Contact Form</a></li>
                                 </ul>
                             </li>
                         </ul>
-
+                        
+                        @if (request()->cookie('user_name') !=null)                          
+                       
                         <div class="d-none d-lg-block">
-                            <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                           <p> {{request()->cookie('user_name')}} </p>
+                       
+                           <form action="{{ route('user.logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-warning">Logout</button>
+                        </form>
                         </div>
+                        @else
+                        <div class="d-none d-lg-block">
+                            <a href="{{url('/signup')}}" class="navbar-icon bi-person smoothscroll"></a>
+                        </div>                       
+                        @endif
+
                     </div>
                 </div>
             </nav>

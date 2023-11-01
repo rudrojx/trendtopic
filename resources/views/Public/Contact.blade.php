@@ -30,34 +30,35 @@
             </div>
 
             <div class="col-lg-6 col-12">
-                <form action="#" method="post" class="custom-form contact-form" role="form">
+                {{-- <form action="#" method="post" class="custom-form contact-form" role="form"> --}}
+            {!! Form::open(['url' => url('/contact'),'method'=>'POST','class'=>'custom-form contact-form','id'=>'contact_form'])!!}
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="form-floating">
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Name" required="">
-                                
+                                {{-- <input type="text" name="name" id="name" class="form-control" placeholder="Name" required=""> --}}
+                                {{Form::text('name','',['placeholder'=> 'Enter  name','class'=>'form-control', 'required'=>'required'])}}
                                 <label for="floatingInput">Name</label>
                             </div>
                         </div>
 
                         <div class="col-lg-6 col-md-6 col-12"> 
                             <div class="form-floating">
-                                <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required="">
-                                
+                                {{-- <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required=""> --}}
+                                {{Form::text('email','',['placeholder'=> 'Enter Email','type'=>'email','class'=>'form-control', 'required'=>'required'])}}       
                                 <label for="floatingInput">Email address</label>
                             </div>
                         </div>
 
                         <div class="col-lg-12 col-12">
                             <div class="form-floating">
-                                <input type="text" name="subject" id="name" class="form-control" placeholder="Name" required="">
-                                
+                                {{-- <input type="text" name="subject" id="name" class="form-control" placeholder="Name" required=""> --}}
+                                {{Form::text('subject','',['placeholder'=> 'Enter Subject','class'=>'form-control'])}}
                                 <label for="floatingInput">Subject</label>
                             </div>
 
                             <div class="form-floating">
-                                <textarea class="form-control" id="message" name="message" placeholder="Tell me about the project"></textarea>
-                                
+                                {{-- <textarea class="form-control" id="message" name="message" placeholder="Tell me about the project"></textarea> --}}
+                                {{Form::textarea('message','',['placeholder'=> 'Enter Message','class'=>'form-control', 'required'=>'required'])}}
                                 <label for="floatingTextarea">Tell me about the project</label>
                             </div>
                         </div>
@@ -67,7 +68,8 @@
                         </div>
 
                     </div>
-                </form>
+                    {!! Form::close() !!}
+                {{-- </form> --}}
             </div>
 
             <div class="col-lg-5 col-12 mx-auto mt-5 mt-lg-0">
