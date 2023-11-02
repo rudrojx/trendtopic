@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Expr\FuncCall;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,7 @@ use App\Http\Controllers\MainController;
 // Main Pages Routes :-  
 
 Route::get('/',[MainController::class,'home']);
-Route::get('/topic-details',[MainController::class,'topicdetails'])->middleware('googleauth');
+Route::get('/topic-details',[MainController::class,'topicdetails']);
 Route::get('/topic-listing',[MainController::class,'topiclisting']);
 
 // User Signup and Logout :-
@@ -43,3 +44,10 @@ Route::get('/auth/github/callback', [AuthController::class, 'handleGitHubCallbac
 
 Route::get('/contact',[MainController::class,'contact']);
 Route::post('/contact',[MainController::class,'storecontact']);
+
+// Admin Routes :
+
+Route::get('/add-blog',[AdminController::class,'AddBlog']);
+Route::get('/add-category',[AdminController::class,'AddCategory']);
+Route::post('/storecategories',[AdminController::class,'StoreCategory'])->name('store-category');
+Route::post('/storeblogs',[AdminController::class,'StoreBlog'])->name('store-blog');

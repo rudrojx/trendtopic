@@ -35,7 +35,7 @@
 
                         <div class="col-lg-4 col-12 mb-4 mb-lg-0">
                             <div class="custom-block bg-white shadow-lg">
-                                <a href="topics-detail.html">
+                                <a href="{{url('topic-details')}}">
                                     <div class="d-flex">
                                         <div>
                                             <h5 class="mb-2">Web Design</h5>

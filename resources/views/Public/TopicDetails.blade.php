@@ -44,9 +44,7 @@
 
                 <p><strong>There are so many ways to make money online</strong>. Below are several platforms you can use to find success. Keep in mind that there is no one path everyone can take. If that were the case, everyone would have a million dollars.</p>
 
-                <blockquote>
-                    Freelancing your skills isn’t going to make you a millionaire overnight.
-                </blockquote>
+             
 
                 <div class="row my-4">
                     <div class="col-lg-6 col-md-6 col-12">
@@ -76,12 +74,12 @@
 
             <div class="col-lg-5 col-12 subscribe-form-wrap d-flex justify-content-center align-items-center">
                 <form class="custom-form subscribe-form" action="#" method="post" role="form">
-                    <h4 class="mb-4 pb-2">Get Newsletter</h4>
+                    <h4 class="mb-4 pb-2">User's Comments </h4>
 
-                    <input type="email" name="subscribe-email" id="subscribe-email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email Address" required="">
+                    <textarea name="comment"  class="form-control" placeholder="Enter your thoughts" required=""> </textarea>
 
                     <div class="col-lg-12 col-12">
-                        <button type="submit" class="form-control">Subscribe</button>
+                        <button type="submit" class="form-control">Submit</button>
                     </div>
                 </form>
             </div>
