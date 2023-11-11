@@ -20,7 +20,7 @@
   <div class="container">
     <h2 class="my-4">Add Blog Details</h2>
     
-    <form action="{{url('/storeblogs')}}" method="POST">
+    <form action="{{url('/storeblogs')}}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="row">
         <div class="col-md-6">
@@ -69,12 +69,12 @@
 
       <div class="form-group">
         <label for="bannerImage">Banner Image</label>
-        <input type="file" class="form-control-file" name="bannerimage" id="bannerImage" accept="image/*" required>
+        <input type="file" class="form-control-file" name="bannerimage" id="bannerImage" required>
       </div>
 
       <div class="form-group">
-        <label for="bannerImage">Blog Image Multiple</label>
-        <input type="file" class="form-control-file" name="blogimgs[]" accept="image/*" required>
+        <label for="bannerImagess">Blog Image Multiple</label>
+        <input type="file" class="form-control-file" name="blogimgs[]" multiple required>
       </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>

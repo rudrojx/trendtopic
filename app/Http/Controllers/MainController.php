@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactForm;
 use Illuminate\Support\Facades\Auth;
 use App\Models\contactquerys;
+use App\Models\trendcategory;
+use App\Models\blogdata;
 use Illuminate\Support\Facades\Session;
 class MainController extends Controller
 {
@@ -34,12 +36,14 @@ class MainController extends Controller
 
     public function topiclisting()
     {
-        return view('Public.TopicListing');
+        $data = blogdata::paginate(10);
+        return view('Public.TopicListing',compact('data'));
     }
 
-    public function topicdetails ()
+    public function topicdetails ($id)
     {
-        return view('Public.TopicDetails');
+        $blogPost = Blogdata::with('trendcategory','blogimages')->findOrFail($id);
+        return view('Public.TopicDetails',compact('blogPost'));
 
     }
 

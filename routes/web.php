@@ -20,7 +20,7 @@ use App\Http\Controllers\AdminController;
 // Main Pages Routes :-  
 
 Route::get('/',[MainController::class,'home']);
-Route::get('/topic-details',[MainController::class,'topicdetails']);
+Route::get('/topic-details/{id}',[MainController::class,'topicdetails'])->name('blog.show');
 Route::get('/topic-listing',[MainController::class,'topiclisting']);
 
 // User Signup and Logout :-
@@ -51,3 +51,5 @@ Route::get('/add-blog',[AdminController::class,'AddBlog']);
 Route::get('/add-category',[AdminController::class,'AddCategory']);
 Route::post('/storecategories',[AdminController::class,'StoreCategory'])->name('store-category');
 Route::post('/storeblogs',[AdminController::class,'StoreBlog'])->name('store-blog');
+Route::get('/blog-list',[AdminController::class,'ShowBlogs']);
+Route::get('/admin/dashboard',[AdminController::class,'Dashboard']);

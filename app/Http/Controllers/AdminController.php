@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\blogdata;
+use App\Models\blogimage;
 use App\Models\trendcategory;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,8 @@ class AdminController extends Controller
 
     public function StoreBlog(Request $request)
     {
+        
+
         $blogData = new blogdata();
         $blogData->title = $request->input('title');
         $blogData->heading = $request->input('heading');
@@ -22,19 +25,56 @@ class AdminController extends Controller
         $blogData->description = $request->input('description');
         $blogData->cat_id = $request->input('cat_id');
         $blogData->blog_summary = $request->input('blog_summary');
-       
-        if($request->hasFile('bannerimage'))
-        {
-            $file=$request->file('bannerimage');
-            $extension=$file->getClientOriginalExtension();
-            $filename=time().'.'.$extension;
-            $file->move('uploads/images',$filename);
-            $blogData->banner_img  =$filename;
+        
+        if ($request->hasFile('bannerimage')) {
+            // Get the file extension
+            $filename = time(). "-Trendblog.".$request->file('bannerimage')->getClientOriginalExtension();
+            $request->file('bannerimage')->storeAs('public/blogimages',$filename);
+            $blogData->banner_img = $filename;
+        } else {
+            // Handle the case when no file is uploaded
+            echo "No file was uploaded";
         }
-            $blogData->save();
-            return redirect()->back()->with("message","Blog Added Successfully");
+            if($blogData->save())
+            {
+                if ($request->hasFile('blogimgs')) 
+                {
+                    foreach ($request->file('blogimgs') as $image) 
+                    {
+                        $name=$image->getClientOriginalName();
+                         $image->storeAs('public/blogimages',$name);    
+                        
+                        $bimg = new blogimage();
+                        $bimg->blog_id = $blogData->blog_id;                    
+                        $bimg->blogimgs = $name;
+                        $bimg->save();
+                    }
+                }
+                    echo "success";
+                    return redirect()->back()->with("message","Blog Added Successfully");
+             }
+                else
+                {
+                    return redirect('/admin/error');
+                        echo("error");
+                }           
             
-            
+    }
+
+    public function ShowBlogs(Request $request)
+    {
+        $search = $request['search'] ?? "";
+        if($search != "")
+        {
+            $blogs = blogdata::where('title','LIKE',"%$search%")->orwhere('blog_id','LIKE',"%$search%")->with('trendcategory')->get();
+        }else{
+            $blogs = blogdata::paginate(10);
+        }
+        
+        //$blogs = blogdata::with('trendcategory')->get();
+        $data = compact('blogs','search');
+
+        return view('Admin.BlogList')->with($data);
     }
 
     public function AddCategory()

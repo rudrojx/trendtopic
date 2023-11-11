@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->unsignedBigInteger('cat_id');
             $table->foreign('cat_id')->references('cat_id')->on('trendcategories');
-            $table->string('blog_summary')->nullable();
+            $table->text('blog_summary')->nullable();
             $table->string('banner_img')->nullable();
             $table->timestamps();
         });

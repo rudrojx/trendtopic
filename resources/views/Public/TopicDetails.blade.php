@@ -7,13 +7,13 @@
             <div class="col-lg-5 col-12 mb-5">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Homepage</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('/')}}">Homepage</a></li>
 
-                        <li class="breadcrumb-item active" aria-current="page">Web Design</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{$blogPost->trendcategory->category_name}}</li>
                     </ol>
                 </nav>
 
-                <h2 class="text-white">Introduction to <br> Web Design 101</h2>
+                <h2 class="text-white">{{$blogPost->title}}</h2>
 
                 <div class="d-flex align-items-center mt-5">
                     <a href="#topics-detail" class="btn custom-btn custom-border-btn smoothscroll me-4">Read More</a>
@@ -24,7 +24,7 @@
 
             <div class="col-lg-5 col-12">
                 <div class="topics-detail-block bg-white shadow-lg">
-                    <img src="images/topics/undraw_Remote_design_team_re_urdx.png" class="topics-detail-block-image img-fluid">
+                    <img src="{{ '/storage/blogimages/'.$blogPost->banner_img}}" class="topics-detail-block-image img-fluid">
                 </div>
             </div>
 
@@ -38,25 +38,23 @@
         <div class="row">
 
             <div class="col-lg-8 col-12 m-auto">
-                <h3 class="mb-4">Introduction to Web Design</h3>
+                <h3 class="mb-4">{{$blogPost->heading}}</h3>
 
-                <p>So how can you stand out, do something unique and interesting, build an online business, and get paid enough to change life. Please visit TemplateMo website to download free website templates.</p>
+                <p>{{$blogPost->blog_summary}}</p>
 
-                <p><strong>There are so many ways to make money online</strong>. Below are several platforms you can use to find success. Keep in mind that there is no one path everyone can take. If that were the case, everyone would have a million dollars.</p>
+                <p>{{$blogPost->short_desc}}</p>
 
              
 
                 <div class="row my-4">
+                    @foreach($blogPost->blogimages as $image)
                     <div class="col-lg-6 col-md-6 col-12">
-                        <img src="images/businesswoman-using-tablet-analysis.jpg" class="topics-detail-block-image img-fluid">
+                        <img src="{{ '/storage/blogimages/'.$image->blogimgs}}" class="topics-detail-block-image img-fluid">
                     </div>
-
-                    <div class="col-lg-6 col-md-6 col-12 mt-4 mt-lg-0 mt-md-0">
-                        <img src="images/colleagues-working-cozy-office-medium-shot.jpg" class="topics-detail-block-image img-fluid">
-                    </div>
+                    @endforeach
                 </div>
 
-                <p>Most people start with freelancing skills they already have as a side hustle to build up income. This extra cash can be used for a vacation, to boost up savings, investing, build business.</p>
+                <p>{{$blogPost->description}}</p>
             </div>
 
         </div>

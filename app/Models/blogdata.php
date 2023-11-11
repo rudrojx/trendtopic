@@ -17,6 +17,7 @@ class blogdata extends Model
 
     public function blogimages()
     {
-        return $this->hasMany(blogimage::class);
+        return $this->hasMany(blogimage::class,'blog_id', 'blog_id');
     }
+
 }
