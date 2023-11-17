@@ -77,18 +77,18 @@
 
             <div class="col-lg-6 col-md-6 col-12 mt-3 mb-4 mb-lg-0">
                 <div class="custom-block bg-white shadow-lg">
-                    <a href="topics-detail.html">
+                    <a href="{{ route('blog.show', ['id' => $shuffledBlogData->blog_id]) }}">
                         <div class="d-flex">
                             <div>
-                                <h5 class="mb-2">Investment</h5>
+                                <h5 class="mb-2">{{$shuffledBlogData->title}}</h5>
 
-                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                <p class="mb-0">{{$shuffledBlogData->blog_summary}}</p>
                             </div>
 
-                            <span class="badge bg-finance rounded-pill ms-auto">30</span>
+                            <span class="badge bg-finance rounded-pill ms-auto">{{$shuffledBlogData->blog_id}}</span>
                         </div>
 
-                        <img src="images/topics/undraw_Finance_re_gnv2.png" class="custom-block-image img-fluid" alt="">
+                        <img src="{{ '/storage/blogimages/'.$shuffledBlogData->banner_img}}" class="custom-block-image img-fluid" alt="">
                     </a>
                 </div>
             </div>
@@ -96,18 +96,18 @@
             <div class="col-lg-6 col-md-6 col-12 mt-lg-3">
                 <div class="custom-block custom-block-overlay">
                     <div class="d-flex flex-column h-100">
-                        <img src="images/businesswoman-using-tablet-analysis.jpg" class="custom-block-image img-fluid" alt="">
+                        <img src="{{ '/storage/blogimages/'.$secondBlogPost->banner_img}}" class="custom-block-image img-fluid" alt="">
 
                         <div class="custom-block-overlay-text d-flex">
                             <div>
-                                <h5 class="text-white mb-2">Finance</h5>
+                                <h5 class="text-white mb-2">{{$secondBlogPost->title}}</h5>
 
-                                <p class="text-white">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint animi necessitatibus aperiam repudiandae nam omnis</p>
+                                <p class="text-white">{{$secondBlogPost->blog_summary}}</p>
 
-                                <a href="topics-detail.html" class="btn custom-btn mt-2 mt-lg-3">Learn More</a>
+                                <a href="{{ route('blog.show', ['id' => $secondBlogPost->blog_id]) }}" class="btn custom-btn mt-2 mt-lg-3">Learn More</a>
                             </div>
 
-                            <span class="badge bg-finance rounded-pill ms-auto">25</span>
+                            <span class="badge bg-finance rounded-pill ms-auto">{{$secondBlogPost->blog_id}}</span>
                         </div>
 
                         <div class="social-share d-flex">

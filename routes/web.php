@@ -20,8 +20,12 @@ use App\Http\Controllers\AdminController;
 // Main Pages Routes :-  
 
 Route::get('/',[MainController::class,'home']);
-Route::get('/topic-details/{id}',[MainController::class,'topicdetails'])->name('blog.show');
+Route::get('/searchresult', [MainController::class, 'home'])->name('search.result');
+Route::get('/topic-details/{id}',[MainController::class,'topicdetails'])->name('blog.show')->middleware('googleauth');
+Route::post('/topic-details/{id}', [MainController::class, 'storecomments']);
 Route::get('/topic-listing',[MainController::class,'topiclisting']);
+Route::any('/toggle-bookmark/{blog_id}', [MainController::class, 'toggleBookmark'])->name('toggle.bookmark')->middleware('googleauth');
+Route::get('/show-bookmarks', [MainController::class, 'showBookmarks'])->name('show.bookmark')->middleware('googleauth');
 
 // User Signup and Logout :-
 
@@ -52,4 +56,11 @@ Route::get('/add-category',[AdminController::class,'AddCategory']);
 Route::post('/storecategories',[AdminController::class,'StoreCategory'])->name('store-category');
 Route::post('/storeblogs',[AdminController::class,'StoreBlog'])->name('store-blog');
 Route::get('/blog-list',[AdminController::class,'ShowBlogs']);
+Route::get('/blog/delete/{id}',[AdminController::class,'DeleteBlog']);
+Route::get('/blog/edit/{id}',[AdminController::class,'EditBlog']);
+Route::put('/update-blog/{id}',[AdminController::class,'UpdateBlog'])->name('update-blog');
 Route::get('/admin/dashboard',[AdminController::class,'Dashboard']);
+Route::get('/customer-querys',[AdminController::class,'ShowCustomerQuerys']);
+Route::get('/querydelete/{id}',[AdminController::class,'DeleteQuery']);
+Route::get('/new-users',[AdminController::class,'ShowUsers']);
+Route::get('/usersdelete/{id}',[AdminController::class,'DeleteUsers']);

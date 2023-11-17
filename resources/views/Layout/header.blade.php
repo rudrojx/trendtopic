@@ -20,7 +20,8 @@
 
         <link href="{{ asset ('css/bootstrap-icons.css')}}" rel="stylesheet">
 
-        <link href="{{asset('css/templatemo-topic-listing.css')}}" rel="stylesheet">      
+        <link href="{{asset('css/templatemo-topic-listing.css')}}" rel="stylesheet">    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">  
         
     </head>
     
@@ -70,7 +71,7 @@
 
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                                     <li><a class="dropdown-item" href="{{url('/topic-listing')}}">Topics Listing</a></li>
-
+                                    <li><a class="dropdown-item" href="{{url('/show-bookmarks')}}">Bookmarks</a></li>
                                     <li><a class="dropdown-item" href="{{url('/contact')}}">Contact Form</a></li>
                                 </ul>
                             </li>

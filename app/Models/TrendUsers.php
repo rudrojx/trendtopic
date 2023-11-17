@@ -13,9 +13,12 @@ class TrendUsers extends Authenticatable
 {
     use HasFactory;   
     protected $table = "trendusers";
-    protected $primaryKey = "user_id";
+    protected $primaryKey = "id";
     
-    protected $fillable = ['google_id', 'name', 'email', 'google_token', 'user_id','github_id','github_token'];
+    protected $fillable = ['google_id', 'name', 'email', 'google_token', 'id','github_id','github_token'];
 
-
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
 }

@@ -2,7 +2,7 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
   <section style="margin-left: -250px;">
   <div class="container mx-auto p-4">
-    <h1 class="text-3xl font-bold mb-4">Blog List</h1>
+    <h1 class="text-3xl font-bold mb-4">Customer's Contact Querys</h1>
     <form action="" method="get">
       <div class="container mx-auto p-4">
         <div class="relative">
@@ -21,26 +21,26 @@
       <thead>
         <tr class="bg-gray-200">          
           <th class="py-2 px-4 border-b border-gray-300">ID</th>
-          <th class="py-2 px-4 border-b border-gray-300">Title</th>
-          <th class="py-2 px-4 border-b border-gray-300">Heading</th>
-          <th class="py-2 px-4 border-b border-gray-300">Category</th>        
-          <th class="py-2 px-4 border-b border-gray-300">Image</th>                   
+          <th class="py-2 px-4 border-b border-gray-300">Name</th>
+          <th class="py-2 px-4 border-b border-gray-300">Email</th>
+          <th class="py-2 px-4 border-b border-gray-300">Subject</th>        
+          <th class="py-2 px-4 border-b border-gray-300">Message</th>                   
           <th class="py-2 px-4 border-b border-gray-300">Action</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        @foreach($blogs as $item)
+        @foreach($userquerys as $item)
         <tr>
-          <td class="py-2 px-4 border-b border-gray-300">{{$item->blog_id}}</td>
-          <td class="py-2 px-4 border-b border-gray-300">{{$item->title}}</td>
-          <td class="py-2 px-4 border-b border-gray-300">{{$item->heading}}</td>               
-          <td class="py-2 px-4 border-b border-gray-300">{{$item->trendcategory->category_name}}</td>         
-          <td class="py-2 px-4 border-b border-gray-300"><img width="50px" height="90px" src="{{ '/storage/blogimages/'.$item->banner_img}}" alt="Banner Image"></td>          
+          <td class="py-2 px-4 border-b border-gray-300">{{$item->id}}</td>
+          <td class="py-2 px-4 border-b border-gray-300">{{$item->name}}</td>
+          <td class="py-2 px-4 border-b border-gray-300">{{$item->email}}</td>               
+          <td class="py-2 px-4 border-b border-gray-300">{{$item->subject}}</td>         
+          <td class="py-2 px-4 border-b border-gray-300">{{$item->message}}</td>          
 
         <td class="py-2 px-4 border-b border-gray-300">
-          <a href="{{url('/blog/delete')}}/{{$item->blog_id}}"><button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Trash</button></a>          
-          <a href="{{url('/blog/edit')}}/{{$item->blog_id}}"><button class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Edit</button></a>
+          <a href="{{url('/querydelete')}}/{{$item->id}}"><button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Trash</button></a>          
+          
         </td>
         </tr>
         @endforeach

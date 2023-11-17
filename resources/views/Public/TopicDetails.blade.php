@@ -17,8 +17,13 @@
 
                 <div class="d-flex align-items-center mt-5">
                     <a href="#topics-detail" class="btn custom-btn custom-border-btn smoothscroll me-4">Read More</a>
-
-                    <a href="#top" class="custom-icon bi-bookmark smoothscroll"></a>
+                    @php
+                    $userId = request()->cookie('user-id');
+                    $isBookmarked = $userId && \App\Models\bookmark::where('user_id', $userId)->where('blog_id', $blogPost->blog_id)->exists();
+                    @endphp
+                   
+                      {{-- {{ $isBookmarked ? 'Bookmarked' : 'Not Bookmarked' }} --}}
+                      <a href="{{route('toggle.bookmark',$blogPost->blog_id)}}" class="bi bi-bookmark{{ $isBookmarked ? '-check-fill' : '' }} smoothscroll"  style="font-size: 30px;"></a>
                 </div>
             </div>
 
@@ -71,9 +76,12 @@
             </div>
 
             <div class="col-lg-5 col-12 subscribe-form-wrap d-flex justify-content-center align-items-center">
-                <form class="custom-form subscribe-form" action="#" method="post" role="form">
+                <form class="custom-form subscribe-form" action="{{url('/topic-details/' . $blogPost->blog_id)}}" method="post" role="form">
+                    @csrf
                     <h4 class="mb-4 pb-2">User's Comments </h4>
-
+                    <input type="hidden" name="userid" value="{{request()->cookie('user-id')}}">
+                    <input type="hidden" name="username" value="{{request()->cookie('user_name')}}">
+                    <input type="hidden" name="blog_id" value="{{$blogPost->blog_id}}">
                     <textarea name="comment"  class="form-control" placeholder="Enter your thoughts" required=""> </textarea>
 
                     <div class="col-lg-12 col-12">
@@ -83,7 +91,22 @@
             </div>
 
         </div>
+        <hr>
+        <div class="comments">
+          @foreach($commentpost as $commentData)
+            <div class="media">           
+                <div class="media-body">
+                    <h6 class="mt-0">{{ $commentData->username}}</h6>
+                    {{ $commentData->comment}}
+                </div>
+            </div><hr>
+         @endforeach           
+        </div>
     </div>
+
+   
+
+   
 </section>
 </main>
 

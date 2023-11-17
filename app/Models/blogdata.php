@@ -19,5 +19,9 @@ class blogdata extends Model
     {
         return $this->hasMany(blogimage::class,'blog_id', 'blog_id');
     }
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class,'blog_id', 'blog_id');
+    }   
 
 }

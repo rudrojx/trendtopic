@@ -47,12 +47,13 @@ class AuthController extends Controller
            sleep(1);
           // dd(session()->all());                
             //dd(Auth::check());
+           
 
         }catch(\Throwable $th){
             throw $th;
         }
         return redirect('/')->withCookie(cookie('user_name', $user->name, 60))
-        ->withCookie(cookie('user_email', $user->email, 60));
+        ->withCookie(cookie('user_email', $user->email, 60))->withCookie(cookie('user-id', $saveUser->id,60));
       
     }
 

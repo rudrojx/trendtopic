@@ -1,5 +1,5 @@
 @include('Layout.header')
-       
+
             <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">                
                 <div class="container">
                     <div class="row">
@@ -9,7 +9,7 @@
 
                             <h6 class="text-center">platform for creatives around the world</h6>
 
-                            <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
+                            <form action="{{ route('search.result') }}" method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-text bi-search" id="basic-addon1">
                                         
@@ -32,40 +32,42 @@
             <section class="featured-section">
                 <div class="container">
                     <div class="row justify-content-center">
-
+                       
                         <div class="col-lg-4 col-12 mb-4 mb-lg-0">
                             <div class="custom-block bg-white shadow-lg">
-                                <a href="{{url('topic-details')}}">
+                                <a href="{{ route('blog.show', ['id' => $shuffledBlogData->blog_id]) }}">
                                     <div class="d-flex">
                                         <div>
-                                            <h5 class="mb-2">Web Design</h5>
+                                            <h5 class="mb-2">{{$shuffledBlogData->trendcategory->category_name}}</h5>
 
-                                            <p class="mb-0">When you search for free CSS templates, you will notice that TemplateMo is one of the best websites.</p>
+                                            <p class="mb-0">{{$shuffledBlogData->blog_summary}}</p>
                                         </div>
 
-                                        <span class="badge bg-design rounded-pill ms-auto">14</span>
+                                        <span class="badge bg-design rounded-pill ms-auto">{{$shuffledBlogData->blog_id}}</span>
                                     </div>
 
-                                    <img src="images/topics/undraw_Remote_design_team_re_urdx.png" class="custom-block-image img-fluid" alt="">
+                                    <img src="{{ '/storage/blogimages/'.$shuffledBlogData->banner_img}}" class="custom-block-image img-fluid" alt="">
                                 </a>
                             </div>
                         </div>
 
+                       
+
                         <div class="col-lg-6 col-12">
                             <div class="custom-block custom-block-overlay">
                                 <div class="d-flex flex-column h-100">
-                                    <img src="images/businesswoman-using-tablet-analysis.jpg" class="custom-block-image img-fluid" alt="">
+                                    <img src="{{ '/storage/blogimages/'.$secondBlogPost->banner_img}}" class="custom-block-image img-fluid" alt="">
 
                                     <div class="custom-block-overlay-text d-flex">
                                         <div>
-                                            <h5 class="text-white mb-2">Finance</h5>
+                                            <h5 class="text-white mb-2">{{$secondBlogPost->trendcategory->category_name}}</h5>
 
-                                            <p class="text-white">Topic Listing Template includes homepage, listing page, detail page, and contact page. You can feel free to edit and adapt for your CMS requirements.</p>
+                                            <p class="text-white">{{$secondBlogPost->blog_summary}}</p>
 
-                                            <a href="topics-detail.html" class="btn custom-btn mt-2 mt-lg-3">Learn More</a>
+                                            <a href="{{ route('blog.show', ['id' => $secondBlogPost->blog_id]) }}" class="btn custom-btn mt-2 mt-lg-3">Learn More</a>
                                         </div>
 
-                                        <span class="badge bg-finance rounded-pill ms-auto">25</span>
+                                        <span class="badge bg-finance rounded-pill ms-auto">{{$secondBlogPost->blog_id}}</span>
                                     </div>
 
                                     <div class="social-share d-flex">
@@ -73,19 +75,23 @@
 
                                         <ul class="social-icon">
                                             <li class="social-icon-item">
-                                                <a href="#" class="social-icon-link bi-twitter"></a>
+                                                <a href="https://twitter.com/intent/tweet?url={{urlencode(url('/topic-details/'.$secondBlogPost->blog_id)) }}&text={{ urlencode($secondBlogPost->title) }}" target="_blank" class="social-icon-link bi-twitter"></a>
                                             </li>
 
                                             <li class="social-icon-item">
-                                                <a href="#" class="social-icon-link bi-facebook"></a>
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u={{urlencode(url('/topic-details/'.$secondBlogPost->iblog_idd))}}" target="_blank" class="social-icon-link bi-facebook"></a>
                                             </li>
 
                                             <li class="social-icon-item">
-                                                <a href="#" class="social-icon-link bi-pinterest"></a>
+                                                <a href="https://pinterest.com/pin/create/button/?url={{urlencode(url('/topic-details/'.$secondBlogPost->blog_id))}}" target="_blank" class="social-icon-link bi-pinterest"></a>
                                             </li>
                                         </ul>
-
-                                        <a href="#" class="custom-icon bi-bookmark ms-auto"></a>
+                                        @php
+                                        $userId = request()->cookie('user-id');
+                                        $isBookmarked = $userId && \App\Models\bookmark::where('user_id', $userId)->where('blog_id', $secondBlogPost->blog_id)->exists();
+                                        @endphp
+                                    {{-- {{ $isBookmarked ? 'Bookmarked' : 'Not Bookmarked' }} --}}
+                                        <a href="{{route('toggle.bookmark',$secondBlogPost->blog_id)}}" class="bi bi-bookmark{{ $isBookmarked ? '-check-fill' : '' }} ms-auto" style="font-size: 30px;"></a>
                                     </div>
 
                                     <div class="section-overlay"></div>
@@ -112,312 +118,47 @@
                 <div class="container-fluid">
                     <div class="row">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="design-tab" data-bs-toggle="tab" data-bs-target="#design-tab-pane" type="button" role="tab" aria-controls="design-tab-pane" aria-selected="true">Design</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="marketing-tab" data-bs-toggle="tab" data-bs-target="#marketing-tab-pane" type="button" role="tab" aria-controls="marketing-tab-pane" aria-selected="false">Marketing</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="finance-tab" data-bs-toggle="tab" data-bs-target="#finance-tab-pane" type="button" role="tab" aria-controls="finance-tab-pane" aria-selected="false">Finance</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="music-tab" data-bs-toggle="tab" data-bs-target="#music-tab-pane" type="button" role="tab" aria-controls="music-tab-pane" aria-selected="false">Music</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education-tab-pane" type="button" role="tab" aria-controls="education-tab-pane" aria-selected="false">Education</button>
-                            </li>
+                            @foreach ($listcategory as $key => $category)
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link{{ $key == 0 ? ' active' : '' }}" id="{{ strtolower($category->category_name) }}-tab" data-bs-toggle="tab" data-bs-target="#{{ strtolower($category->category_name) }}-tab-pane" type="button" role="tab" aria-controls="{{ strtolower($category->category_name) }}-tab-pane" aria-selected="{{ $key == 0 ? 'true' : 'false' }}">{{ $category->category_name }}</button>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
+                
 
                 <div class="container">
                     <div class="row">
 
                         <div class="col-12">
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="design-tab-pane" role="tabpanel" aria-labelledby="design-tab" tabindex="0">
+                                @foreach ($listcategory as $key => $category)
+                                <div class="tab-pane fade{{ $key == 0 ? ' show active' : '' }}" id="{{ strtolower($category->category_name) }}-tab-pane" role="tabpanel" aria-labelledby="{{ strtolower($category->category_name) }}-tab" tabindex="0">
                                     <div class="row">
+                                        @foreach ($category->blogdata as $blogPost)
                                         <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
                                             <div class="custom-block bg-white shadow-lg">
-                                                <a href="topics-detail.html">
+                                                <a href="{{ route('blog.show', ['id' => $blogPost->blog_id]) }}">
                                                     <div class="d-flex">
                                                         <div>
-                                                            <h5 class="mb-2">Web Design</h5>
+                                                            <h5 class="mb-2">{{ $blogPost->title }}</h5>
 
-                                                            <p class="mb-0">Topic Listing Template based on Bootstrap 5</p>
+                                                            <p class="mb-0">{{ $blogPost->blog_summary }}</p>
                                                         </div>
 
-                                                        <span class="badge bg-design rounded-pill ms-auto">14</span>
+                                                        <span class="badge bg-design rounded-pill ms-auto">{{ $blogPost->blog_id }}</span>
                                                     </div>
 
-                                                    <img src="images/topics/undraw_Remote_design_team_re_urdx.png" class="custom-block-image img-fluid" alt="">
+                                                    <img src="{{ '/storage/blogimages/'.$blogPost->banner_img}}" class="custom-block-image img-fluid" alt="">
                                                 </a>
                                             </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="{{url('topic-details')}}">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Graphic</h5>
-
-                                                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-design rounded-pill ms-auto">75</span>
-                                                    </div>
-
-                                                    <img src="images/topics/undraw_Redesign_feedback_re_jvm0.png" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 col-12">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="topics-detail.html">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Logo Design</h5>
-
-                                                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-design rounded-pill ms-auto">100</span>
-                                                    </div>
-
-                                                    <img src="images/topics/colleagues-working-cozy-office-medium-shot.png" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
+                                        </div>                      
+                                        @endforeach                                       
                                     </div>
                                 </div>
-
-                                <div class="tab-pane fade" id="marketing-tab-pane" role="tabpanel" aria-labelledby="marketing-tab" tabindex="0">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
-                                                <div class="custom-block bg-white shadow-lg">
-                                                    <a href="topics-detail.html">
-                                                        <div class="d-flex">
-                                                            <div>
-                                                                <h5 class="mb-2">Advertising</h5>
-
-                                                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                            </div>
-
-                                                            <span class="badge bg-advertising rounded-pill ms-auto">30</span>
-                                                        </div>
-
-                                                        <img src="images/topics/undraw_online_ad_re_ol62.png" class="custom-block-image img-fluid" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
-                                                <div class="custom-block bg-white shadow-lg">
-                                                    <a href="topics-detail.html">
-                                                        <div class="d-flex">
-                                                            <div>
-                                                                <h5 class="mb-2">Video Content</h5>
-
-                                                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                            </div>
-
-                                                            <span class="badge bg-advertising rounded-pill ms-auto">65</span>
-                                                        </div>
-
-                                                        <img src="images/topics/undraw_Group_video_re_btu7.png" class="custom-block-image img-fluid" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-6 col-12">
-                                                <div class="custom-block bg-white shadow-lg">
-                                                    <a href="topics-detail.html">
-                                                        <div class="d-flex">
-                                                            <div>
-                                                                <h5 class="mb-2">Viral Tweet</h5>
-
-                                                                <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                            </div>
-
-                                                            <span class="badge bg-advertising rounded-pill ms-auto">50</span>
-                                                        </div>
-
-                                                        <img src="images/topics/undraw_viral_tweet_gndb.png" class="custom-block-image img-fluid" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                  </div>
-
-                                <div class="tab-pane fade" id="finance-tab-pane" role="tabpanel" aria-labelledby="finance-tab" tabindex="0">   <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-0">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="topics-detail.html">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Investment</h5>
-
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-finance rounded-pill ms-auto">30</span>
-                                                    </div>
-
-                                                    <img src="images/topics/undraw_Finance_re_gnv2.png" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6 col-md-6 col-12">
-                                            <div class="custom-block custom-block-overlay">
-                                                <div class="d-flex flex-column h-100">
-                                                    <img src="images/businesswoman-using-tablet-analysis-graph-company-finance-strategy-statistics-success-concept-planning-future-office-room.jpg" class="custom-block-image img-fluid" alt="">
-
-                                                    <div class="custom-block-overlay-text d-flex">
-                                                        <div>
-                                                            <h5 class="text-white mb-2">Finance</h5>
-
-                                                            <p class="text-white">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint animi necessitatibus aperiam repudiandae nam omnis</p>
-
-                                                            <a href="topics-detail.html" class="btn custom-btn mt-2 mt-lg-3">Learn More</a>
-                                                        </div>
-
-                                                        <span class="badge bg-finance rounded-pill ms-auto">25</span>
-                                                    </div>
-
-                                                    <div class="social-share d-flex">
-                                                        <p class="text-white me-4">Share:</p>
-
-                                                        <ul class="social-icon">
-                                                            <li class="social-icon-item">
-                                                                <a href="#" class="social-icon-link bi-twitter"></a>
-                                                            </li>
-
-                                                            <li class="social-icon-item">
-                                                                <a href="#" class="social-icon-link bi-facebook"></a>
-                                                            </li>
-
-                                                            <li class="social-icon-item">
-                                                                <a href="#" class="social-icon-link bi-pinterest"></a>
-                                                            </li>
-                                                        </ul>
-
-                                                        <a href="#" class="custom-icon bi-bookmark ms-auto"></a>
-                                                    </div>
-
-                                                    <div class="section-overlay"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="music-tab-pane" role="tabpanel" aria-labelledby="music-tab" tabindex="0">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="topics-detail.html">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Composing Song</h5>
-
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-music rounded-pill ms-auto">45</span>
-                                                    </div>
-
-                                                    <img src="images/topics/undraw_Compose_music_re_wpiw.png" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="topics-detail.html">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Online Music</h5>
-
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-music rounded-pill ms-auto">45</span>
-                                                    </div>
-
-                                                    <img src="images/topics/undraw_happy_music_g6wc.png" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 col-12">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="topics-detail.html">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Podcast</h5>
-
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-music rounded-pill ms-auto">20</span>
-                                                    </div>
-
-                                                    <img src="images/topics/undraw_Podcast_audience_re_4i5q.png" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="education-tab-pane" role="tabpanel" aria-labelledby="education-tab" tabindex="0">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-3">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="topics-detail.html">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Graduation</h5>
-
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-education rounded-pill ms-auto">80</span>
-                                                    </div>
-
-                                                    <img src="images/topics/undraw_Graduation_re_gthn.png" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6 col-md-6 col-12">
-                                            <div class="custom-block bg-white shadow-lg">
-                                                <a href="topics-detail.html">
-                                                    <div class="d-flex">
-                                                        <div>
-                                                            <h5 class="mb-2">Educator</h5>
-
-                                                            <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                        </div>
-
-                                                        <span class="badge bg-education rounded-pill ms-auto">75</span>
-                                                    </div>
-
-                                                    <img src="images/topics/undraw_Educator_re_ju47.png" class="custom-block-image img-fluid" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
-
                     </div>
                 </div>
             </section>
@@ -614,5 +355,18 @@
             </section>
         </main>
 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.nav-link').on('click', function() {
+                    // Hide all tab panes
+                    $('.tab-pane').removeClass('show active');
+
+                    // Show the clicked tab pane
+                    var targetPaneId = $(this).attr('data-bs-target').substring(1);
+                    $('#' + targetPaneId).addClass('show active');
+                });
+            });
+        </script>
 
         @include('Layout.footer')
